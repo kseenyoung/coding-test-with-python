@@ -1,11 +1,14 @@
 N, M = list(map(int, input().split()))
 coins = [10001]*(M+1)
+coins[0] = 0
+nums = []
 
 for i in range(N):
-    coins[i+1] = int(input())
+    nums.append(int(input()))
 
-for i in range(2, M+1):
-    for j in range(i, M+1):
-        coins[i] = min(coins[j-i], coins[j])
+for i in range(N):  # 각 coin
+    coin = nums[i]
+    for target in range(coin, M+1):  # 해당하는 coin부터 M까지
+        coins[target] = min(coins[target - coin]+1, coins[target])
 
-print(coins[M])
+print(coins[M] if coins[M] != 10001 else -1)
